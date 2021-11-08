@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   
+    <!--Budget Head Tree-->
+     <record id="budget_head_tree" model="ir.ui.view">
+            <field name="name">budget.head.tree</field>
+            <field name="model">budget.head</field>
+            <field name="arch" type="xml">
+                <tree string="Budget Head">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+    <!--Budget Head Form-->
+    <record id="budget_head_form" model="ir.ui.view">
+            <field name="name">budget.head.form</field>
+            <field name="model">budget.head</field>
+            <field name="arch" type="xml">
+                <form string="Budget Head">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" class="oe_inline" placeholder="Define your terms and conditions ..."/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+         <!--Budget Head Action-->
+        <record id="action_budget_head" model="ir.actions.act_window">
+            <field name="name">Budget Head</field>
+            <field name="res_model">budget.head</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!--Budget Project Tree-->
+        <record id="budget_project_tree" model="ir.ui.view">
+            <field name="name">budget.project.tree</field>
+            <field name="model">project.budget</field>
+            <field name="arch" type="xml">
+                <tree string="Project">
+                    <field name="name"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Budget Project Form-->
+    <record id="budget_project_form" model="ir.ui.view">
+            <field name="name">budget.project.form</field>
+            <field name="model">project.budget</field>
+            <field name="arch" type="xml">
+                <form string="Project">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Budget Details">
+                            <field name="project_budget_line_ids">
+                                <tree string="Project Budget" editable="bottom">
+                                    <field name="budget_head_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!--Project Action-->
+        <record id="action_project" model="ir.actions.act_window">
+            <field name="name">Project</field>
+            <field name="res_model">project.budget</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Configuration-->
+        <menuitem name="Configuration"
+            id="menu_budget_allocation_config"
+            sequence="2"
+            parent="menu_budget_root"/>
+
+        <menuitem
+            id="menu_budget_head_config"
+            sequence="1"
+            name="Budget Head"
+            parent="menu_budget_allocation_config"
+            action="action_budget_head"/>
+
+        <menuitem
+            id="menu_budget_project_config"
+            sequence="2"
+            name="Project"
+            parent="menu_budget_allocation_config"
+            action="action_project"/>
+
+
+</odoo>

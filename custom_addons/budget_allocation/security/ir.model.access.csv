@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_budget_purchase_order_user,budget.purchase.order.user,model_budget_purchase_order,base.group_user,1,1,1,1
+access_budget_purchase_order_line_user,budget.purchase.order.line.user,model_budget_purchase_order_line,base.group_user,1,1,1,1
+
+access_budget_head_user,budget.budget.head.user,model_budget_head,base.group_user,1,1,1,1
+access_project_budget_user,project.budget.user,model_project_budget,base.group_user,1,1,1,1
+access_project_budget_line_user,project.budget.line.user,model_project_budget_line,base.group_user,1,1,1,1

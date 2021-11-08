@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   
+    <!--Purchase Order Tree-->
+     <record id="budget_purchase_order_tree" model="ir.ui.view">
+            <field name="name">budget.purchase.order.tree</field>
+            <field name="model">budget.purchase.order</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order">
+                    <field name="order_date"/>
+                    <field name="name" readonly="1"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+    <!--Purchase Order Form-->
+    <record id="budget_purchase_order_form" model="ir.ui.view">
+            <field name="name">budget.purchase.order.form</field>
+            <field name="model">budget.purchase.order</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="order_date"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" class="oe_inline" placeholder="Define your terms and conditions ..."/>
+                    </group>
+                    <notebook>
+                        <page string="Budget Allocation">
+                            <field name="budget_po_line_ids">
+                                <tree string="Budget Lines" editable="bottom">
+                                    <field name="project_budget_id"/>
+                                    <field name="budget_head_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Purchase Order Search-->
+        <record id="view_budget_purchase_order_filter" model="ir.ui.view">
+            <field name="name">budget.purchase.order.select</field>
+            <field name="model">budget.purchase.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                    <field name="name" string="Order"/>
+                    <field name="partner_id" string="Vendor"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Vendor" name="partner_id" domain="[]" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Order Date" name="order_date" domain="[]" context="{'group_by': 'order_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Purchase Order Action-->
+        <record id="action_budget_puchase_order" model="ir.actions.act_window">
+            <field name="name">Purchase order</field>
+            <!-- <field name="type">ir.actions.act_window</field> -->
+            <field name="res_model">budget.purchase.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="budget_purchase_order_tree"/>
+            <field name="target">main</field>
+            <field name="search_view_id" ref="view_budget_purchase_order_filter"/>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="Budget Allocation"
+            id="menu_budget_root"
+            sequence="35"/>
+        
+        <menuitem name="Purchase Order"
+            id="menu_budget_purchase_order"
+            sequence="1"
+            parent="menu_budget_root"
+            action="action_budget_puchase_order"/>
+
+
+</odoo>
